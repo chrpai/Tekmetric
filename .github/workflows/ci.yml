@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-pack:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore
+        run: dotnet restore /home/runner/work/Tekmetric/Tekmetric/Tekmetric/Tekmetric.csproj
+
+      - name: Build
+        run: dotnet build /home/runner/work/Tekmetric/Tekmetric/Tekmetric/Tekmetric.csproj --configuration Release --no-restore
+
+      - name: Pack
+        run: dotnet pack /home/runner/work/Tekmetric/Tekmetric/Tekmetric/Tekmetric.csproj --configuration Release --no-build --output /home/runner/work/Tekmetric/Tekmetric/artifacts
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-package
+          path: /home/runner/work/Tekmetric/Tekmetric/artifacts/*.nupkg
