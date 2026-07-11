@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;net45</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <PackageId>Tekmetric</PackageId>
+    <Authors>Tekmetric</Authors>
+    <Description>Make Tekmetric API calls.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="All" />
+  </ItemGroup>
+
+</Project>
